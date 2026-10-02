@@ -1,46 +1,158 @@
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     font-family: Arial, sans-serif;
 }
 
+
+/* HERO */
+
 .hero-section {
-    min-height: 70vh;
-    background-color: #f8f9fa;
+    padding: 100px 0;
+    background-color: #ffffff;
 }
 
-.hero-section h1 {
-    font-size: clamp(2.5rem, 5vw, 4.5rem);
+.profile-photo {
+    width: 260px;
+    height: 260px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 6px solid #ffffff;
+
+    box-shadow:
+        0 10px 30px rgba(0, 0, 0, 0.18);
 }
 
-.about-text {
-    max-width: 800px;
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
 
-.card {
+/* SKILLS */
+
+.skill-card {
     border: none;
-    transition: transform 0.2s ease;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.card:hover {
+.skill-card:hover {
     transform: translateY(-5px);
 }
 
-#projects {
-    min-height: 400px;
+.skill-icon {
+    font-size: 2.5rem;
+
+    color: #0d6efd;
 }
 
+
+/* PROJECT CARDS */
+
 .project-card {
+    border: none;
+
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
 .project-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-5px);
 }
 
 .project-card .badge {
-    font-size: 0.8rem;
-    padding: 0.5rem 0.7rem;
+    background-color: #e7f1ff !important;
+
+    color: #0d6efd !important;
+
+    padding: 7px 10px;
+
+    font-weight: 500;
+}
+
+.project-card .btn-dark {
+    background-color: #0d6efd;
+
+    border-color: #0d6efd;
+}
+
+.project-card .btn-dark:hover {
+    background-color: #0b5ed7;
+
+    border-color: #0a58ca;
+}
+
+
+/* ARCHITECTURE */
+
+.architecture-box {
+    height: 150px;
+
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    border: 1px solid #dee2e6;
+
+    border-radius: 10px;
+
+    background-color: white;
+}
+
+.architecture-box i {
+    font-size: 2rem;
+
+    color: #0d6efd;
+
+    margin-bottom: 10px;
+}
+
+.architecture-box h6 {
+    margin-bottom: 3px;
+
+    font-weight: bold;
+}
+
+.architecture-box small {
+    color: #6c757d;
+}
+
+
+/* RESPONSIVE */
+
+@media (max-width: 991px) {
+
+    .hero-section {
+        padding: 70px 0;
+    }
+
+    .profile-photo {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+
+@media (max-width: 576px) {
+
+    .hero-section {
+        padding: 50px 0;
+    }
+
+    .hero-section h1 {
+        font-size: 2.3rem;
+    }
+
+    .profile-photo {
+        width: 180px;
+        height: 180px;
+    }
 }
