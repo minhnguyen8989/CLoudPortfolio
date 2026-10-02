@@ -1,58 +1,98 @@
-const projects = [
-    {
-        title: "DSA Search Engine",
-        description: "A Python search engine built using core data structures and algorithms.",
-        technologies: [
-            "Python",
-            "Pytest",
-            "Data Structures",
-            "Algorithms"
-        ],
-        githubUrl: "https://github.com/YOUR-USERNAME/DSASearchEngine"
-    },
-    {
-        title: "DriveSafe Route Analyzer",
-        description: "A route analysis web application that displays driving routes and checkpoints on an interactive map.",
-        technologies: [
-            "Python",
-            "Flask",
-            "Mapbox",
-            "JavaScript"
-        ],
-        githubUrl: "https://github.com/YOUR-USERNAME/DriveSafeRouteAnalyzer"
-    },
-    {
-        title: "Cloud Portfolio",
-        description: "A responsive portfolio application using Bootstrap with a serverless AWS backend.",
-        technologies: [
-            "HTML",
-            "CSS",
-            "Bootstrap",
-            "JavaScript",
-            "AWS"
-        ],
-        githubUrl: "https://github.com/YOUR-USERNAME/CloudPortfolio"
-    }
-];
+// ========================================
+// AWS Lambda Function URL
+// ========================================
 
+const API_URL =
+    "https://j3vexe2ryvzfsfhp2ztxzujkau0drduw.lambda-url.us-east-1.on.aws/ ";
+
+
+// ========================================
+// Fetch Projects From AWS
+// ========================================
+
+async function loadProjects() {
+
+    const container =
+        document.getElementById("projects-container");
+
+    // Show loading message
+    container.innerHTML = `
+        <div class="col-12 text-center">
+            <p class="text-muted">
+                Loading projects...
+            </p>
+        </div>
+    `;
+
+    try {
+
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error(
+                `HTTP error: ${response.status}`
+            );
+        }
+
+        const projects = await response.json();
+
+        displayProjects(projects);
+
+    } catch (error) {
+
+        console.error(
+            "Error loading projects:",
+            error
+        );
+
+        container.innerHTML = `
+            <div class="col-12 text-center">
+                <div class="alert alert-danger">
+                    Unable to load projects.
+                </div>
+            </div>
+        `;
+    }
+}
+
+
+// ========================================
+// Display Projects
+// ========================================
 
 function displayProjects(projectList) {
 
-    const container = document.getElementById("projects-container");
+    const container =
+        document.getElementById("projects-container");
 
     container.innerHTML = "";
 
+    if (projectList.length === 0) {
+
+        container.innerHTML = `
+            <div class="col-12 text-center">
+                <p class="text-muted">
+                    No projects available.
+                </p>
+            </div>
+        `;
+
+        return;
+    }
+
     projectList.forEach(project => {
 
-        const technologies = project.technologies
-            .map(technology =>
-                `<span class="badge bg-secondary me-1 mb-1">
-                    ${technology}
-                </span>`
-            )
-            .join("");
+        const technologies =
+            project.technologies
+                .map(technology => `
+                    <span class="badge bg-secondary me-1 mb-1">
+                        ${technology}
+                    </span>
+                `)
+                .join("");
 
         const projectCard = `
+
             <div class="col-12 col-md-6 col-lg-4">
 
                 <div class="card h-100 shadow-sm project-card">
@@ -70,6 +110,11 @@ function displayProjects(projectList) {
                         <div class="mb-3">
                             ${technologies}
                         </div>
+
+                        <p>
+                            <strong>Status:</strong>
+                            ${project.status}
+                        </p>
 
                         <div class="mt-auto">
 
@@ -100,4 +145,8 @@ function displayProjects(projectList) {
 }
 
 
-displayProjects(projects);
+// ========================================
+// Start Application
+// ========================================
+
+loadProjects();
